@@ -130,7 +130,7 @@ jobs:
 
       - name: Set image tag
         id: tag
-        run: echo "tag=sha-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+        run: echo "tag=sha-${GITHUB_SHA}" >> $GITHUB_OUTPUT
 
   update-k8s:
     name: Update Kubernetes Manifest (GitOps)
