@@ -201,7 +201,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
 
-      - name: Build & Push
+      - name: Build & Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -236,7 +236,8 @@ jobs:
       - name: Update deployment.yaml
         run: |
           IMAGE="ghcr.io/${{ steps.image.outputs.name }}:${{ needs.docker.outputs.image_tag }}"
-          sed -i "s|image:.*|image: ${IMAGE}|g" kubernetes/deployment.yaml
+          sed -i.bak "s|image:.*|image: ${IMAGE}|g" kubernetes/deployment.yaml
+          rm kubernetes/deployment.yaml.bak
 
       - name: Commit & Push
         run: |
